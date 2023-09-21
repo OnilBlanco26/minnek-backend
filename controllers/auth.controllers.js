@@ -68,7 +68,7 @@ const login = catchAsync(async (req, res, next) => {
   
   const renewToken = catchAsync(async (req, res, next) => {
    
-    const { id } = req.sessionUser;
+    const { id } = req.sessionUser[0];
   
     const token = await generateJWT(id);
 
@@ -78,6 +78,7 @@ const login = catchAsync(async (req, res, next) => {
         status: true,
       },
     });
+
   
     res.status(200).json({
       staus: 'success',

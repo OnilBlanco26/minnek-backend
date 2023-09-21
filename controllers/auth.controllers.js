@@ -67,26 +67,22 @@ const login = catchAsync(async (req, res, next) => {
   });
   
   const renewToken = catchAsync(async (req, res, next) => {
-    const { sessionUser } = req;
+   
+    const { id } = req.sessionUser;
   
-    const token = await generateJWT(sessionUser.id);
+    const token = await generateJWT(id);
 
-    const user = await Users.findOne({
+    const user = await Users.findAll({
       where: {
-        status: true,
         id,
+        status: true,
       },
     });
   
     res.status(200).json({
       staus: 'success',
       token,
-      user: {
-        id: sessionUser.id,
-        email: sessionUser.email,
-        name: sessionUser.name,
-        lastname: sessionUser.lastname,
-      },
+      user
     });
   });
 

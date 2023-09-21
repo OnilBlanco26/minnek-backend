@@ -22,6 +22,32 @@ const validateIfExistDogById = catchAsync(async (req, res, next) => {
     next()
 })
 
+const validateIfExistDogByName = catchAsync(async (req, res, next) => {
+    const { name } = req.body;
+
+    const dog = await Dogs.findOne({
+        where: {
+            name
+        }
+    })
+
+    if (dog) {
+        return res.status(400).json({
+            status: 'Error',
+            message: 'Dog already exist'
+        })
+    }
+
+    if (dog.status === false) {
+        dog.status = true;
+        await dog.save();
+    }
+    
+    req.dog = dog;
+    next()
+})
+
 module.exports = {
-    validateIfExistDogById
+    validateIfExistDogById,
+    validateIfExistDogByName
 }

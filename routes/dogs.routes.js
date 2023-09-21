@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { findAllDogs, findDogById, createDog, updateDog, deleteDog} = require("../controllers/dogs.controllers");
-const { validateIfExistDogById } = require("../middlewares/dogs.middlewares");
+const { validateIfExistDogById, validateIfExistDogByName } = require("../middlewares/dogs.middlewares");
 const { protect } = require("../middlewares/auth.middlewares");
 
 
@@ -12,7 +12,7 @@ router.get('/:id', validateIfExistDogById,  findDogById)
 
 router.use(protect)
 
-router.post('/', createDog)
+router.post('/', validateIfExistDogByName, createDog)
 
 router.patch('/:id', validateIfExistDogById, updateDog)
 

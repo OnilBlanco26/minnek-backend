@@ -42,7 +42,8 @@ const findDogById = catchAsync(async (req, res, next) => {
 })
 
 const createDog = catchAsync(async (req, res, next) => {
-    const { name, subBreeds, image } = req.body;
+    const { name } = req.dog;
+    const { subBreeds, image } = req.body;
   
 
     const dog = await Dogs.create({

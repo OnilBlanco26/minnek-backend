@@ -10,7 +10,7 @@ router.get('/', findAllDogs)
 
 router.get('/:id', validateIfExistDogById,  findDogById)
 
-router.use(protect)
+// router.use(protect)
 
 router.post('/', createDog)
 

@@ -72,7 +72,7 @@ const login = catchAsync(async (req, res, next) => {
   
     const token = await generateJWT(id);
 
-    const user = await Users.findAll({
+    const user = await Users.findOne({
       where: {
         id,
         status: true,
@@ -81,7 +81,7 @@ const login = catchAsync(async (req, res, next) => {
 
   
     res.status(200).json({
-      staus: 'success',
+      status: 'success',
       token,
       user : {
         id: user.id,

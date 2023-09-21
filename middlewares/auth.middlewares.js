@@ -34,14 +34,13 @@ const protect = catchAsync(async (req, res, next) => {
       where: {
         id: decoded.id,
         status: true,
-      },
-    });
+      }
+    })
   
     if (!user) {
       return next(new AppError('No se ha encontrado el usuario', 404));
     }
    
-    req.token = token;
     req.sessionUser = user;
     next();
   });

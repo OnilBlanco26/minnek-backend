@@ -82,7 +82,10 @@ const login = catchAsync(async (req, res, next) => {
     res.status(200).json({
       staus: 'success',
       token,
-      user
+      user : {
+        id: user.id,
+        email: user.email,
+      }
     });
   });
 

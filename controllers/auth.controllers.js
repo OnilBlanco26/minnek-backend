@@ -82,7 +82,7 @@ const login = catchAsync(async (req, res, next) => {
       staus: 'success',
       token,
       user: {
-        uid: sessionUser.id,
+        id: sessionUser.id,
         email: sessionUser.email,
         name: sessionUser.name,
         lastname: sessionUser.lastname,

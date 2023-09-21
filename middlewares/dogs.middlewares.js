@@ -39,8 +39,10 @@ const validateIfExistDogByName = catchAsync(async (req, res, next) => {
     }
 
     if (dog.status === false) {
-        dog.status = true;
-        await dog.save();
+        return res.status(400).json({
+            status: 'Error',
+            message: 'Dog already exist but is inactive'
+        })
     }
     
     req.dog = dog;

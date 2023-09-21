@@ -2,7 +2,8 @@ const AppError = require("../helpers/appError");
 const catchAsync = require("../helpers/catchAsync");
 const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
-const { Users } = require("../models/users.models");
+const Users = require("../models/users.models");
+
 
 const protect = catchAsync(async (req, res, next) => {
     //Verificar que llega el token
@@ -30,7 +31,7 @@ const protect = catchAsync(async (req, res, next) => {
     );
   
     //Validar si existe el usuario
-    const user = await Users.findOne({
+    const user = await Users.findAll({
       where: {
         id: decoded.id,
         status: true,

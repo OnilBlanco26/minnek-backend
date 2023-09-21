@@ -40,31 +40,7 @@ const protect = catchAsync(async (req, res, next) => {
     if (!user) {
       return next(new AppError('No se ha encontrado el usuario', 404));
     }
-    //Validar si el usuario a cambiado el password despues de que el token ha expirado
-    if (user.passwordChangedAt) {
-      const changedTimeStamp = parseInt(
-        user.passwordChangedAt.getTime() / 1000,
-        10
-      );
-      if (decoded.iat < changedTimeStamp) {
-        return next(
-          new AppError(
-            'El usuario ha cambiado la clave recientemente, porfavor inicia sesion nuevamente'
-          )
-        );
-      }
-  
-      if (decoded.exp < currentTimeStamp) {
-        user.lastSessionOf = Date.now();
-        await user.save();
-        return next(
-          new AppError(
-            'El token ha expirado, porfavor inicia sesion nuevamente',
-            401
-          )
-        );
-      }
-    }
+   
     req.token = token;
     req.sessionUser = user;
     next();
